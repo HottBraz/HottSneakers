@@ -18,8 +18,7 @@ class Login(View):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponse('Login realizado com sucesso!')
-                #return redirect('home')
+                return redirect("/veiculo")
         else:
             messages.error(request, 'Usuário ou senha inválidos.')
             return redirect('login')
