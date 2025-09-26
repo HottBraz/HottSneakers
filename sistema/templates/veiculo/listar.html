@@ -3,57 +3,57 @@
 {% block title %}Lista de Veículos{% endblock %}
 
 {% block content %}
-    <div class="card card-body mb-4">
-        <form class="row g-3 align-items-center">
-            <div class="col-lg">
-                <input type="search" class="form-control" name="q" placeholder="Pesquisar por marca, modelo, placa...">
-            </div>
-            <div class="col-lg-auto">
-                <button class="btn btn-success w-100" type="submit">
-                    <i class="bi bi-search me-1"></i> Pesquisar
-                </button>
-            </div>
-        </form>
-    </div>
+<div class="card card-body mb-4">
+    <form class="row g-3 align-items-center">
+        <div class="col-lg">
+            <input type="search" class="form-control" name="q" placeholder="Pesquisar por marca, modelo, placa...">
+        </div>
+        <div class="col-lg-auto">
+            <button class="btn btn-success w-100" type="submit">
+                <i class="bi bi-search me-1"></i> Pesquisar
+            </button>
+        </div>
+    </form>
+</div>
 
-    <!-- Cards de Veículos -->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {% for veiculo in lista_veiculos %}
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <!-- Imagem do Veículo -->
-                <img src="" class="card-img-top" alt="Imagem do {{ veiculo.modelo }}">
-                
-                <div class="card-body">
+<!-- Cards de Veículos -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for veiculo in lista_veiculos %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <!-- Imagem do Veículo -->
+            <img src="" class="card-img-top" alt="Imagem do {{ veiculo.modelo }}">
+
+            <div class="card-body">
                 <h5 class="card-title">{{ veiculo.get_marca_display }} {{ veiculo.modelo }}</h5>
 
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item px-0"><strong>Ano:</strong> {{ veiculo.ano }}</li>
-                        <li class="list-group-item px-0"><strong>Cor:</strong> {{ veiculo.get_cor_display }}</li>
-                        <li class="list-group-item px-0"><strong>Combustível:</strong> {{ veiculo.get_combustivel_display }}</li>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-0"><strong>Ano:</strong> {{ veiculo.ano }}</li>
+                    <li class="list-group-item px-0"><strong>Cor:</strong> {{ veiculo.get_cor_display }}</li>
+                    <li class="list-group-item px-0"><strong>Combustível:</strong> {{ veiculo.get_combustivel_display }}
+                    </li>
 
-                    </ul>
-                </div>
+                </ul>
+            </div>
 
-                <div class="card-footer bg-white border-0 pb-3">
-                     <div class="d-grid gap-2 d-md-flex justify-content-end">
-                        <a href="#" class="btn btn-sm btn-outline-primary" title="Editar">
-                            <i class="bi bi-pencil-fill me-1"></i> Editar
-                        </a>
-                        <a href="#" class="btn btn-sm btn-outline-danger" title="Excluir">
-                            <i class="bi bi-trash-fill me-1"></i> Excluir
-                        </a>
-                    </div>
+            <div class="card-footer bg-white border-0 pb-3">
+                <div class="d-grid gap-2 d-md-flex justify-content-end">
+                    <a href="#" class="btn btn-sm btn-outline-primary" title="Editar">
+                        <i class="bi bi-pencil-fill me-1"></i> Editar
+                    </a>
+                    <a href="#" class="btn btn-sm btn-outline-danger" title="Excluir">
+                        <i class="bi bi-trash-fill me-1"></i> Excluir
+                    </a>
                 </div>
             </div>
         </div>
-        {% empty %}
-        <div class="col-12">
-            <div class="alert alert-secondary text-center py-4">
-                Nenhum veículo encontrado.
-            </div>
-        </div>
-        {% endfor %}
     </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-secondary text-center py-4">
+            Nenhum veículo encontrado.
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
-

@@ -8,7 +8,10 @@ class Login(View):
 
     def get(self, request):
         contexto = {}
-        return render(request, 'login.html', contexto)
+        if request.user.is_authenticated:
+            return redirect("/veiculo")
+        else:
+            return render(request, 'login.html', contexto)
     
     def post(self, request):
         usuario = request.POST.get('usuario', None)
@@ -23,5 +26,8 @@ class Login(View):
             messages.error(request, 'Usuário ou senha inválidos.')
             return redirect('login')
         
-        
-
+class Logout(View):
+    
+    def get(self, request):
+        logout(request)
+        return redirect('login')
