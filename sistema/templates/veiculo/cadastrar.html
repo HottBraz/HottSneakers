@@ -8,7 +8,7 @@
         <h4 class="card-title mb-0">Cadastrar Novo Veículo</h4>
     </div>
     <div class="card-body">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
                 {% for field in form %}

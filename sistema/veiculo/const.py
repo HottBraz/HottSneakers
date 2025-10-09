@@ -8,6 +8,7 @@ OPCOES_MARCAS = (
     (7, 'HONDA'),
     (8, 'HYUNDAI'),
     (9, 'VOLKSWAGEN'),
+    (10, 'LAMBORGHINI')
 )
 
 OPCOES_COMBUSTIVEL = (

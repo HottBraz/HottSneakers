@@ -21,8 +21,14 @@
     {% for veiculo in lista_veiculos %}
     <div class="col">
         <div class="card h-100 shadow-sm">
-            <!-- Imagem do Veículo -->
-            <img src="" class="card-img-top" alt="Imagem do {{ veiculo.modelo }}">
+            {% if veiculo.foto %}
+            <img src="{{ veiculo.foto.url }}" class="card-img-top" alt="Imagem do {{ veiculo.modelo }}"
+                style="height: 200px; object-fit: cover;">
+            {% else %}
+            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <i class="bi bi-car-front text-muted" style="font-size: 3rem;"></i>
+            </div>
+            {% endif %}
 
             <div class="card-body">
                 <h5 class="card-title">{{ veiculo.get_marca_display }} {{ veiculo.modelo }}</h5>
