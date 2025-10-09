@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.http import Http404, FileResponse
 from veiculo.forms import FormularioVeiculo
 from veiculo.models import Veiculo
@@ -12,7 +12,10 @@ class ListarVeiculos(LoginRequiredMixin, ListView):
     template_name = 'veiculo/listar.html'
 
     def get_queryset(self):
-        return Veiculo.objects.all()
+        veiculos = Veiculo.objects.all()
+        for veiculo in veiculos:
+            veiculo.form = FormularioVeiculo(instance=veiculo)
+        return veiculos
     
 class CadastrarVeiculo(LoginRequiredMixin, CreateView):
     model = Veiculo
@@ -30,3 +33,12 @@ class FotoVeiculo(LoginRequiredMixin, ListView):
             raise Http404("Foto não encontrada.")
         except Exception as e:
             raise e
+        
+class EditarVeiculo(LoginRequiredMixin, UpdateView):
+    model = Veiculo
+    form_class = FormularioVeiculo
+    success_url = reverse_lazy('listar-veiculos')
+
+class ExcluirVeiculo(LoginRequiredMixin, DeleteView):
+    model = Veiculo
+    success_url = reverse_lazy('listar-veiculos')

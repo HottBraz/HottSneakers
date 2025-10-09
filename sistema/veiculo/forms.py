@@ -15,5 +15,5 @@ class FormularioVeiculo(ModelForm):
             'ano': forms.NumberInput(attrs={'class': 'form-control'}),
             'cor': forms.Select(attrs={'class': 'form-select'}),
             'combustivel': forms.Select(attrs={'class': 'form-select'}),
-            'foto': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'foto': forms.FileInput(attrs={'class': 'form-control'}),
         }
