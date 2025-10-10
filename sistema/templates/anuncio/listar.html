@@ -4,9 +4,9 @@
 
 {% block content %}
 <div class="card card-body mb-4">
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cadastrarAnuncioModal">
+    <a href="{% url 'cadastrar-anuncio' %}" class="btn btn-success">
         <i class="bi bi-plus-circle me-1"></i> Novo Anúncio
-    </button>
+    </a>
 </div>
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -24,13 +24,17 @@
                     <a href="{% url 'editar-anuncio' anuncio.id %}" class="btn btn-sm btn-outline-primary">
                         <i class="bi bi-pencil-fill me-1"></i> Editar
                     </a>
-                    <a href="{% url 'excluir-anuncio' anuncio.id %}" class="btn btn-sm btn-outline-danger">
-                        <i class="bi bi-trash-fill me-1"></i> Excluir
-                    </a>
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                    data-bs-target="#deleteAnuncioModal-{{ anuncio.id }}">
+                    <i class="bi bi-trash-fill me-1"></i> Excluir
+                </button>
                 </div>
             </div>
         </div>
     </div>
+    
+    {% include 'anuncio/modals.html' with anuncio=anuncio %}
+
     {% empty %}
     <div class="col-12">
         <div class="alert alert-secondary text-center py-4">
@@ -40,5 +44,4 @@
     {% endfor %}
 </div>
 
-{% include 'anuncio/modals.html' %}
 {% endblock %}

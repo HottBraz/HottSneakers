@@ -14,15 +14,11 @@ class ListarAnuncios(LoginRequiredMixin, ListView):
         # Filtra os anúncios pelo usuário autenticado
         return Anuncio.objects.filter(usuario=self.request.user)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = FormularioAnuncio()
-        return context
 
 class CadastrarAnuncio(LoginRequiredMixin, CreateView):
     model = Anuncio
     form_class = FormularioAnuncio
-    template_name = 'anuncio/listar.html' # Aponta para a listagem
+    template_name = 'anuncio/cadastrar.html'
     success_url = reverse_lazy('listar-anuncios')
 
     def get_form(self):
