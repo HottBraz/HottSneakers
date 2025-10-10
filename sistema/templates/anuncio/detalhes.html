@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes do Anúncio{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            {% if anuncio.veiculo.foto %}
+            <img src="{{ anuncio.veiculo.foto.url }}" class="card-img-top" alt="{{ anuncio.veiculo.modelo }}" style="object-fit: cover; height: 400px;">
+            {% endif %}
+            <div class="card-body">
+                <h3>{{ anuncio.titulo }}</h3>
+                <p class="h4 text-success">R$ {{ anuncio.preco }}</p>
+                <hr>
+                <h5>Descrição</h5>
+                <p>{{ anuncio.descricao|linebreaks }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Veículo</h5>
+                <p>{{ anuncio.veiculo.get_marca_display }} {{ anuncio.veiculo.modelo }} ({{ anuncio.veiculo.ano }})</p>
+                <ul class="list-unstyled small">
+                    <li><strong>Cor:</strong> {{ anuncio.veiculo.get_cor_display }}</li>
+                    <li><strong>Combustível:</strong> {{ anuncio.veiculo.get_combustivel_display }}</li>
+                </ul>
+                <a href="{% url 'listar-anuncios' %}" class="btn btn-secondary btn-sm">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

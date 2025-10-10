@@ -13,17 +13,21 @@
     {% for anuncio in lista_anuncios %}
     <div class="col">
         <div class="card h-100 shadow-sm">
+            {% if anuncio.veiculo.foto %}
+            <a href="{% url 'detalhes-anuncio' anuncio.id %}">
+                <img src="{{ anuncio.veiculo.foto.url }}" class="card-img-top" alt="{{ anuncio.veiculo.modelo }}" style="height:200px; object-fit:cover;">
+            </a>
+            {% endif %}
             <div class="card-body">
-                <h5 class="card-title">{{ anuncio.titulo }}</h5>
-                <p class="card-text">{{ anuncio.descricao }}</p>
+                <h5 class="card-title"><a href="{% url 'detalhes-anuncio' anuncio.id %}">{{ anuncio.titulo }}</a></h5>
                 <p class="card-text"><strong>Preço:</strong> R$ {{ anuncio.preco }}</p>
                 <p class="card-text"><strong>Veículo:</strong> {{ anuncio.veiculo }}</p>
             </div>
             <div class="card-footer bg-white border-0 pb-3">
                 <div class="d-grid gap-2 d-md-flex justify-content-end">
-                    <a href="{% url 'editar-anuncio' anuncio.id %}" class="btn btn-sm btn-outline-primary">
+                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editAnuncioModal-{{ anuncio.id }}">
                         <i class="bi bi-pencil-fill me-1"></i> Editar
-                    </a>
+                    </button>
                     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
                     data-bs-target="#deleteAnuncioModal-{{ anuncio.id }}">
                     <i class="bi bi-trash-fill me-1"></i> Excluir

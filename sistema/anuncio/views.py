@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Anuncio
@@ -12,7 +12,10 @@ class ListarAnuncios(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         # Filtra os anúncios pelo usuário autenticado
-        return Anuncio.objects.filter(usuario=self.request.user)
+        anuncios = Anuncio.objects.filter(usuario=self.request.user)
+        for anuncio in anuncios:
+            anuncio.form = FormularioAnuncio(instance=anuncio)
+        return anuncios
 
 
 class CadastrarAnuncio(LoginRequiredMixin, CreateView):
@@ -44,7 +47,6 @@ class EditarAnuncio(LoginRequiredMixin, UpdateView):
 
     def get_form(self):
         form = super().get_form()
-        # Exibe todos os veículos, sem restrição por usuário
         form.fields['veiculo'].queryset = Veiculo.objects.all()
         return form
 
@@ -55,4 +57,13 @@ class ExcluirAnuncio(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         # Garante que o usuário só pode excluir seus próprios anúncios
+        return Anuncio.objects.filter(usuario=self.request.user)
+
+
+class DetalhesAnuncio(LoginRequiredMixin, DetailView):
+    model = Anuncio
+    context_object_name = 'anuncio'
+    template_name = 'anuncio/detalhes.html'
+
+    def get_queryset(self):
         return Anuncio.objects.filter(usuario=self.request.user)
