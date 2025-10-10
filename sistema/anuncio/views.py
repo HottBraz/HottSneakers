@@ -1,3 +1,62 @@
-from django.shortcuts import render
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Anuncio
+from .forms import FormularioAnuncio
+from veiculo.models import Veiculo
 
-# Create your views here.
+class ListarAnuncios(LoginRequiredMixin, ListView):
+    model = Anuncio
+    context_object_name = 'lista_anuncios'
+    template_name = 'anuncio/listar.html'
+
+    def get_queryset(self):
+        # Filtra os anúncios pelo usuário autenticado
+        return Anuncio.objects.filter(usuario=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = FormularioAnuncio()
+        return context
+
+class CadastrarAnuncio(LoginRequiredMixin, CreateView):
+    model = Anuncio
+    form_class = FormularioAnuncio
+    template_name = 'anuncio/listar.html' # Aponta para a listagem
+    success_url = reverse_lazy('listar-anuncios')
+
+    def get_form(self):
+        form = super().get_form()
+        # Exibe todos os veículos, sem restrição por usuário
+        form.fields['veiculo'].queryset = Veiculo.objects.all()
+        return form
+
+    def form_valid(self, form):
+        # Associa o anúncio ao usuário autenticado
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
+
+class EditarAnuncio(LoginRequiredMixin, UpdateView):
+    model = Anuncio
+    form_class = FormularioAnuncio
+    template_name = 'anuncio/listar.html'
+    success_url = reverse_lazy('listar-anuncios')
+
+    def get_queryset(self):
+        # Garante que o usuário só pode editar seus próprios anúncios
+        return Anuncio.objects.filter(usuario=self.request.user)
+
+    def get_form(self):
+        form = super().get_form()
+        # Exibe todos os veículos, sem restrição por usuário
+        form.fields['veiculo'].queryset = Veiculo.objects.all()
+        return form
+
+class ExcluirAnuncio(LoginRequiredMixin, DeleteView):
+    model = Anuncio
+    template_name = 'anuncio/listar.html'
+    success_url = reverse_lazy('listar-anuncios')
+
+    def get_queryset(self):
+        # Garante que o usuário só pode excluir seus próprios anúncios
+        return Anuncio.objects.filter(usuario=self.request.user)

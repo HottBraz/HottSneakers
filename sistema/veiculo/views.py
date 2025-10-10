@@ -23,6 +23,10 @@ class CadastrarVeiculo(LoginRequiredMixin, CreateView):
     template_name = 'veiculo/cadastrar.html'
     success_url = reverse_lazy('listar-veiculos')
 
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user  # Associa o usuário autenticado
+        return super().form_valid(form)
+
 class FotoVeiculo(LoginRequiredMixin, ListView):
 
     def get(self, request, arquivo):

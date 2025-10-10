@@ -8,7 +8,7 @@ class FormularioVeiculo(ModelForm):
     """
     class Meta:
         model = Veiculo
-        exclude = []
+        exclude = ['usuario'] 
         widgets = {
             'marca': forms.Select(attrs={'class': 'form-select'}),
             'modelo': forms.TextInput(attrs={'class': 'form-control'}),

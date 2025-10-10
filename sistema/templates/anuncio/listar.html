@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Anúncios{% endblock %}
+
+{% block content %}
+<div class="card card-body mb-4">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cadastrarAnuncioModal">
+        <i class="bi bi-plus-circle me-1"></i> Novo Anúncio
+    </button>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for anuncio in lista_anuncios %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ anuncio.titulo }}</h5>
+                <p class="card-text">{{ anuncio.descricao }}</p>
+                <p class="card-text"><strong>Preço:</strong> R$ {{ anuncio.preco }}</p>
+                <p class="card-text"><strong>Veículo:</strong> {{ anuncio.veiculo }}</p>
+            </div>
+            <div class="card-footer bg-white border-0 pb-3">
+                <div class="d-grid gap-2 d-md-flex justify-content-end">
+                    <a href="{% url 'editar-anuncio' anuncio.id %}" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-pencil-fill me-1"></i> Editar
+                    </a>
+                    <a href="{% url 'excluir-anuncio' anuncio.id %}" class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash-fill me-1"></i> Excluir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-secondary text-center py-4">
+            Nenhum anúncio encontrado.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% include 'anuncio/modals.html' %}
+{% endblock %}
