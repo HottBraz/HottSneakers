@@ -41,8 +41,10 @@ class FotoVeiculo(LoginRequiredMixin, ListView):
 class EditarVeiculo(LoginRequiredMixin, UpdateView):
     model = Veiculo
     form_class = FormularioVeiculo
+    template_name = 'veiculo/listar.html'
     success_url = reverse_lazy('listar-veiculos')
 
 class ExcluirVeiculo(LoginRequiredMixin, DeleteView):
     model = Veiculo
+    template_name = 'veiculo/listar.html'
     success_url = reverse_lazy('listar-veiculos')

@@ -26,12 +26,10 @@ class CadastrarAnuncio(LoginRequiredMixin, CreateView):
 
     def get_form(self):
         form = super().get_form()
-        # Exibe todos os veículos, sem restrição por usuário
         form.fields['veiculo'].queryset = Veiculo.objects.all()
         return form
 
     def form_valid(self, form):
-        # Associa o anúncio ao usuário autenticado
         form.instance.usuario = self.request.user
         return super().form_valid(form)
 
