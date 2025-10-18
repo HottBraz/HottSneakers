@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block title %}Confirmar Exclusão - Hott Motors{% endblock %}
+
+{% block conteudo %}
+<div class="min-h-screen bg-black">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <!-- Cabeçalho -->
+            <div class="mb-8">
+                <h1 class="text-4xl font-bold text-white mb-2">Confirmar Exclusão</h1>
+                <p class="text-gray-300">Esta ação não pode ser desfeita</p>
+            </div>
+
+            <!-- Card do Anúncio -->
+            <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                <div class="md:flex items-start space-x-6">
+                    <!-- Imagem -->
+                    <div class="md:w-48 md:h-32 mb-4 md:mb-0">
+                        {% if anuncio.veiculo.foto %}
+                            <img src="{% url 'foto-veiculo' anuncio.veiculo.get_foto_filename %}" 
+                                 alt="{{ anuncio.titulo }}" 
+                                 class="w-full h-32 object-cover rounded-lg">
+                        {% else %}
+                            <div class="w-full h-32 bg-gray-800 flex items-center justify-center rounded-lg">
+                                <span class="text-gray-500 text-2xl">🚗</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Informações -->
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-white mb-2">{{ anuncio.titulo }}</h3>
+                        <p class="text-gray-300 mb-2">{{ anuncio.veiculo.marca }} {{ anuncio.veiculo.modelo }} - {{ anuncio.veiculo.ano }}</p>
+                        
+                        {% if anuncio.tipo_anuncio == 'venda' %}
+                            <p class="text-lg font-semibold text-red-500 mb-2">R$ {{ anuncio.preco|floatformat:2 }}</p>
+                        {% else %}
+                            <p class="text-lg font-semibold text-blue-400 mb-2">TROCA</p>
+                        {% endif %}
+                        
+                        <div class="text-gray-400 text-sm">
+                            <p>📍 {{ anuncio.cidade }}, {{ anuncio.estado }}</p>
+                            <p>👁️ {{ anuncio.visualizacoes }} visualizações</p>
+                            <p>📅 Criado em {{ anuncio.data_criacao|date:"d/m/Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aviso de Confirmação -->
+            <div class="bg-red-900 border border-red-600 rounded-lg p-6 mb-8">
+                <div class="flex items-start">
+                    <div class="text-red-400 text-2xl mr-4">⚠️</div>
+                    <div>
+                        <h3 class="text-red-400 font-semibold text-lg mb-2">Atenção!</h3>
+                        <p class="text-red-200 mb-3">
+                            Você está prestes a excluir permanentemente este anúncio. Esta ação não pode ser desfeita.
+                        </p>
+                        <ul class="text-red-200 text-sm space-y-1">
+                            <li>• O anúncio será removido completamente da plataforma</li>
+                            <li>• Todas as visualizações e dados serão perdidos</li>
+                            <li>• Interessados não poderão mais encontrar este anúncio</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário de Confirmação -->
+            <div class="bg-gray-900 rounded-lg p-6">
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <div class="text-center">
+                        <p class="text-white text-lg mb-6">
+                            Tem certeza que deseja excluir o anúncio "<strong>{{ anuncio.titulo }}</strong>"?
+                        </p>
+                    </div>
+                    
+                    <!-- Botões -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button type="submit" 
+                                class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors">
+                            🗑️ Sim, Excluir Permanentemente
+                        </button>
+                        <a href="{% url 'meus-anuncios' %}" 
+                           class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-lg font-semibold text-center transition-colors">
+                            ← Cancelar e Voltar
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Alternativas -->
+            <div class="mt-8 bg-gray-900 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-white mb-3">💡 Alternativas à Exclusão:</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                        <div>
+                            <h4 class="text-white font-medium">Pausar Anúncio</h4>
+                            <p class="text-gray-400 text-sm">Oculte temporariamente sem perder os dados</p>
+                        </div>
+                        <a href="{% url 'editar-anuncio' anuncio.pk %}" 
+                           class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Pausar
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                        <div>
+                            <h4 class="text-white font-medium">Marcar como Vendido</h4>
+                            <p class="text-gray-400 text-sm">Manter histórico mas remover das buscas</p>
+                        </div>
+                        <a href="{% url 'editar-anuncio' anuncio.pk %}" 
+                           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Marcar Vendido
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center justify-between p-3 bg-gray-800 rounded-lg">
+                        <div>
+                            <h4 class="text-white font-medium">Editar Anúncio</h4>
+                            <p class="text-gray-400 text-sm">Atualizar informações, preço ou descrição</p>
+                        </div>
+                        <a href="{% url 'editar-anuncio' anuncio.pk %}" 
+                           class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Editar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

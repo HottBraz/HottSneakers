@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Hott Motors</title>
+    <!-- Importação do Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importação de uma fonte do Google para se assemelhar ao design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte 'Inter' como padrão para todo o corpo da página */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Container Principal que ocupa a tela inteira -->
+    <div class="flex flex-col md:flex-row w-full min-h-screen">
+
+        <!-- Seção Esquerda (Informações da Marca) -->
+        <div
+            class="w-full md:w-1/2 bg-gradient-to-br from-teal-900 to-gray-900 text-white p-8 sm:p-12 flex flex-col justify-center items-center text-center">
+            <!-- Logo 'Q' com o caminho local ajustado -->
+            <div class="w-40 h-40 mb-4 bg-black flex items-center justify-center rounded-lg">
+                <div class="text-white font-bold text-6xl">H</div>
+            </div>
+                class="w-40 h-40 mb-4">
+            <h1 class="text-4xl font-bold tracking-wide">Hott Motors</h1>
+            <p class="text-lg text-teal-100 mt-2">Redefinindo a Jornada</p>
+        </div>
+
+        <!-- Seção Direita (Formulário de Login) -->
+        <div class="w-full md:w-1/2 bg-white p-8 sm:p-14 flex flex-col justify-center">
+            <div class="w-full max-w-md mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Login</h2>
+
+                <form action="/" method="POST">
+                    {% csrf_token %}
+                    <!-- Campo de Usuário -->
+                    <div class="mb-4">
+                        <label for="usuario" class="block text-gray-700 text-sm font-semibold mb-2">Usuário</label>
+                        <input type="text" id="usuario" name="usuario"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-200"
+                            placeholder="Usuário">
+                    </div>
+
+                    <!-- Campo de Senha -->
+                    <div class="mb-4">
+                        <label for="senha" class="block text-gray-700 text-sm font-semibold mb-2">Senha</label>
+                        <input type="password" id="senha" name="senha"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600 transition duration-200"
+                            placeholder="••••••••">
+                    </div>
+
+                    <!-- Link "Esqueci minha senha" -->
+                    <div class="text-right mb-6">
+                        <a href="#"
+                            class="text-sm text-gray-600 hover:text-teal-700 hover:underline transition duration-200">Esqueci
+                            minha senha</a>
+                    </div>
+
+                    <!-- Botão de Entrar -->
+                    <div>
+                        <button type="submit"
+                            class="w-full bg-teal-700 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-700 transition duration-300">
+                            Entrar
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Link para Criar Conta -->
+                <p class="text-center text-gray-600 mt-8">
+                    Não tem conta? <a href="#" class="text-teal-700 font-semibold hover:underline">Criar agora</a>
+                </p>
+            </div>
+        </div>
+
+        </div>
+        {% if mensagem %}
+        <!-- Modal de erro -->
+        <div id="modal-erro" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
+                <h3 class="text-lg font-bold text-red-700 mb-2">Erro</h3>
+                <p class="text-gray-800 mb-4">{{ mensagem }}</p>
+                <button onclick="document.getElementById('modal-erro').style.display='none'"
+                    class="bg-teal-700 text-white px-4 py-2 rounded hover:bg-teal-800 transition">Fechar</button>
+            </div>
+        </div>
+        <script>
+            // Garante que o modal aparece ao carregar a página
+            document.getElementById('modal-erro').style.display = 'flex';
+        </script>
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
