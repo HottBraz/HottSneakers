@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Meus Anúncios{% endblock %}
+{% block title %}Todos os Anúncios{% endblock %}
 
 {% block content %}
 <div class="card card-body mb-4">
-    <h4>Meus Anúncios</h4>
-    <a href="{% url 'cadastrar-anuncio' %}" class="btn btn-success">
-        <i class="bi bi-plus-circle me-1"></i> Novo Anúncio
-    </a>
+    <h4>Todos os Anúncios</h4>
+    <p class="text-muted">Navegue pelos anúncios de todos os usuários</p>
 </div>
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -23,22 +21,17 @@
                 <h5 class="card-title"><a href="{% url 'detalhes-anuncio' anuncio.id %}">{{ anuncio.titulo }}</a></h5>
                 <p class="card-text"><strong>Preço:</strong> R$ {{ anuncio.preco }}</p>
                 <p class="card-text"><strong>Veículo:</strong> {{ anuncio.veiculo }}</p>
+                <p class="card-text small text-muted"><strong>Anunciante:</strong> {{ anuncio.usuario.username }}</p>
             </div>
             <div class="card-footer bg-white border-0 pb-3">
-                <div class="d-grid gap-2 d-md-flex justify-content-end">
-                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editAnuncioModal-{{ anuncio.id }}">
-                        <i class="bi bi-pencil-fill me-1"></i> Editar
-                    </button>
-                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
-                    data-bs-target="#deleteAnuncioModal-{{ anuncio.id }}">
-                    <i class="bi bi-trash-fill me-1"></i> Excluir
-                </button>
+                <div class="d-grid">
+                    <a href="{% url 'detalhes-anuncio' anuncio.id %}" class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-info-circle me-1"></i> Ver Detalhes
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-    
-    {% include 'anuncio/modals.html' with anuncio=anuncio %}
 
     {% empty %}
     <div class="col-12">

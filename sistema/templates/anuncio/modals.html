@@ -34,7 +34,7 @@
                 <form action="{% url 'editar-anuncio' anuncio.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
-                        {% for field in anuncio.form %}
+                        {% for field in anuncio_form|default:anuncio.form %}
                         <div class="col-md-6 mb-3">
                             <label for="{{ field.id_for_label }}_{{ anuncio.id }}" class="form-label">{{ field.label }}</label>
                             {{ field }}

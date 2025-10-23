@@ -29,13 +29,23 @@
                                 <i class="bi bi-car-front-fill me-1"></i> Listar Veículos
                             </a>
                         </li>
-                        <a class="nav-link" href="{% url 'cadastrar-veiculo' %}">
-                            <i class="bi bi-plus-circle me-1"></i> Cadastrar Veículo
-                        </a>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'listar-anuncios' %}">
+                            <a class="nav-link" href="{% url 'cadastrar-veiculo' %}">
+                                <i class="bi bi-plus-circle me-1"></i> Cadastrar Veículo
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-megaphone me-1"></i> Anúncios
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'todos-anuncios' %}">
+                                    <i class="bi bi-globe me-1"></i> Todos os Anúncios
+                                </a></li>
+                                <li><a class="dropdown-item" href="{% url 'listar-anuncios' %}">
+                                    <i class="bi bi-person-circle me-1"></i> Meus Anúncios
+                                </a></li>
+                            </ul>
                         </li>
                     </ul>
                     <!-- Menu do Usuário à Direita -->

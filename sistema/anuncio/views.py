@@ -66,4 +66,26 @@ class DetalhesAnuncio(LoginRequiredMixin, DetailView):
     template_name = 'anuncio/detalhes.html'
 
     def get_queryset(self):
-        return Anuncio.objects.filter(usuario=self.request.user)
+        # Permite visualizar qualquer anúncio (não apenas os do usuário logado)
+        return Anuncio.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        anuncio = self.get_object()
+        # Só fornece o formulário de edição se o anúncio for do usuário logado
+        if anuncio.usuario == self.request.user:
+            context['anuncio_form'] = FormularioAnuncio(instance=anuncio)
+            context['is_owner'] = True
+        else:
+            context['is_owner'] = False
+        return context
+
+
+class ListarTodosAnuncios(LoginRequiredMixin, ListView):
+    model = Anuncio
+    context_object_name = 'lista_anuncios'
+    template_name = 'anuncio/todos.html'
+
+    def get_queryset(self):
+        # Lista todos os anúncios de todos os usuários
+        return Anuncio.objects.all().select_related('veiculo', 'usuario')
