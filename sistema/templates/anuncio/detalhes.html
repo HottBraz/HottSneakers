@@ -27,10 +27,28 @@
                     <li><strong>Cor:</strong> {{ anuncio.veiculo.get_cor_display }}</li>
                     <li><strong>Combustível:</strong> {{ anuncio.veiculo.get_combustivel_display }}</li>
                 </ul>
-                <a href="{% url 'listar-anuncios' %}" class="btn btn-secondary btn-sm">Voltar</a>
+                <hr>
+                <p class="small text-muted"><strong>Anunciante:</strong> {{ anuncio.usuario.username }}</p>
+                
+                {% if is_owner %}
+                <div class="d-flex gap-2 mb-2">
+                    <button type="button" class="btn btn-outline-primary btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#editAnuncioModal-{{ anuncio.id }}">
+                        <i class="bi bi-pencil-fill"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#deleteAnuncioModal-{{ anuncio.id }}">
+                        <i class="bi bi-trash-fill"></i> Excluir
+                    </button>
+                </div>
+                {% endif %}
+                
+                <a href="{% url 'todos-anuncios' %}" class="btn btn-secondary btn-sm mt-2 w-100">Voltar</a>
             </div>
         </div>
     </div>
 </div>
+
+{% if is_owner %}
+{% include 'anuncio/modals.html' with anuncio=anuncio %}
+{% endif %}
 
 {% endblock %}
