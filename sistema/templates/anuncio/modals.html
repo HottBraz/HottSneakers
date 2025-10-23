@@ -34,17 +34,31 @@
                 <form action="{% url 'editar-anuncio' anuncio.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
-                        {% for field in anuncio_form|default:anuncio.form %}
-                        <div class="col-md-6 mb-3">
-                            <label for="{{ field.id_for_label }}_{{ anuncio.id }}" class="form-label">{{ field.label }}</label>
-                            {{ field }}
-                            {% if field.errors %}
-                            <div class="invalid-feedback d-block">
-                                {{ field.errors.as_text }}
+                        {% if anuncio_form %}
+                            {% for field in anuncio_form %}
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ field.id_for_label }}_{{ anuncio.id }}" class="form-label">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ field.errors.as_text }}
+                                </div>
+                                {% endif %}
                             </div>
-                            {% endif %}
-                        </div>
-                        {% endfor %}
+                            {% endfor %}
+                        {% else %}
+                            {% for field in anuncio.form %}
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ field.id_for_label }}_{{ anuncio.id }}" class="form-label">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ field.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="mt-3">
                         <button type="submit" class="btn btn-success">
