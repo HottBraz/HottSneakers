@@ -5,6 +5,10 @@ from veiculo.models import Veiculo
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.generics import ListAPIView
+from veiculo.serializers import SerializadorVeiculo
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 class ListarVeiculos(LoginRequiredMixin, ListView):
     model = Veiculo
@@ -48,3 +52,12 @@ class ExcluirVeiculo(LoginRequiredMixin, DeleteView):
     model = Veiculo
     template_name = 'veiculo/listar.html'
     success_url = reverse_lazy('listar-veiculos')
+
+class APIListarVeiculos(ListAPIView):
+    serializer_class = SerializadorVeiculo
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Veiculo.objects.all()
+    
