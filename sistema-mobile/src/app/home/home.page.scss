@@ -1,0 +1,151 @@
+ion-content {
+    --background: #f8f9fa;
+}
+
+.search-container {
+    background: white;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    ion-searchbar {
+        --background: #f8f9fa;
+        --border-radius: 8px;
+        padding: 0 0 12px 0;
+    }
+
+    ion-button {
+        margin: 0;
+        --border-radius: 8px;
+    }
+}
+
+.vehicles-grid {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.vehicle-card {
+    margin: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    background: white;
+
+    .vehicle-image {
+        height: 200px;
+        background: #e9ecef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .no-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            ion-icon {
+                font-size: 80px;
+                color: rgba(255, 255, 255, 0.8);
+            }
+        }
+    }
+
+    ion-card-header {
+        padding: 16px 16px 8px 16px;
+
+        .vehicle-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #212529;
+            margin: 0;
+        }
+    }
+
+    ion-card-content {
+        padding: 8px 16px 16px;
+
+        .info-list {
+            padding: 0;
+            margin: 0 0 16px 0;
+
+            ion-item {
+                --padding-start: 0;
+                --padding-end: 0;
+                --inner-padding-end: 0;
+                --inner-padding-start: 0;
+                --min-height: 32px;
+                --background: transparent;
+
+                ion-label {
+                    font-size: 0.95rem;
+                    color: #495057;
+                    margin: 4px 0;
+
+                    strong {
+                        color: #212529;
+                    }
+                }
+            }
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            border-top: 1px solid #e9ecef;
+            padding-top: 12px;
+            margin-top: 8px;
+
+            ion-button {
+                --border-radius: 6px;
+                font-size: 0.875rem;
+                margin: 0;
+            }
+        }
+    }
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px 20px;
+
+    .empty-card {
+        margin: 0;
+        box-shadow: none;
+        background: #f8f9fa;
+
+        ion-card-content {
+            padding: 30px 20px;
+            color: #6c757d;
+            font-size: 1rem;
+        }
+    }
+}
+
+ion-fab-button {
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+ion-toolbar {
+    --background: white;
+    --border-color: #dee2e6;
+    --border-width: 0 0 1px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}

@@ -5,7 +5,7 @@ from veiculo.models import Veiculo
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, DestroyAPIView
 from veiculo.serializers import SerializadorVeiculo
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
@@ -31,7 +31,7 @@ class CadastrarVeiculo(LoginRequiredMixin, CreateView):
         form.instance.usuario = self.request.user  # Associa o usuário autenticado
         return super().form_valid(form)
 
-class FotoVeiculo(LoginRequiredMixin, ListView):
+class FotoVeiculo(ListView):
 
     def get(self, request, arquivo):
         try:
@@ -61,3 +61,10 @@ class APIListarVeiculos(ListAPIView):
     def get_queryset(self):
         return Veiculo.objects.all()
     
+class APIExcluirVeiculo(DestroyAPIView):
+    model = Veiculo
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Veiculo.objects.all()

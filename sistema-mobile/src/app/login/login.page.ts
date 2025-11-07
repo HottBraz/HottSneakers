@@ -68,7 +68,9 @@ export class LoginPage implements OnInit {
 
     // Define informações do cabeçalho da requisição
     const options: HttpOptions = {
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json'
+      },
       url: 'http://127.0.0.1:8000/api/login/',
       data: this.instancia
     };

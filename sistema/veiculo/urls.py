@@ -7,5 +7,8 @@ urlpatterns = [
     path('editar/<int:pk>/', EditarVeiculo.as_view(), name='editar-veiculo'),
     path('fotos/<str:arquivo>/', FotoVeiculo.as_view(), name='foto-veiculo'),
     path('excluir/<int:pk>/', ExcluirVeiculo.as_view(), name='excluir-veiculo'),
+
     path('api/listar/', APIListarVeiculos.as_view(), name='api-listar-veiculos'),
+
+    path('api/deletar/<int:pk>/', APIExcluirVeiculo.as_view(), name='api-deletar-veiculo'),
 ]
