@@ -19,6 +19,7 @@ import { ToastController } from '@ionic/angular';
 import { CapacitorHttp, HttpOptions, HttpResponse } from '@capacitor/core';
 import { Storage } from '@ionic/storage-angular';
 import { Usuario } from './usuario.model';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -71,7 +72,7 @@ export class LoginPage implements OnInit {
       headers: {
         'Content-Type': 'application/json'
       },
-      url: 'http://127.0.0.1:8000/api/login/',
+      url: `${environment.apiUrl}/api/login/`,
       data: this.instancia
     };
 
@@ -93,22 +94,26 @@ export class LoginPage implements OnInit {
         else {
           // Finaliza autenticação e apresenta mensagem de erro
           loading.dismiss();
-          this.apresenta_mensagem(resposta.status);
+          this.apresenta_mensagem(`Falha ao autenticar usuário: código ${resposta.status}`);
         }
       })
       .catch(async (erro: any) => {
         console.log(erro);
         loading.dismiss();
-        this.apresenta_mensagem(erro?.status);
+        if (erro?.status) {
+          this.apresenta_mensagem(`Falha ao autenticar usuário: código ${erro.status}`);
+        } else {
+          this.apresenta_mensagem('Erro de conexão. Verifique se o servidor está rodando.');
+        }
       });
   }
 
-  async apresenta_mensagem(codigo: number) {
-    const mensagem = await this.controle_toast.create({
-      message: `Falha ao autenticar usuário: código ${codigo}`,
+  async apresenta_mensagem(mensagem: string) {
+    const toast = await this.controle_toast.create({
+      message: mensagem,
       cssClass: 'ion-text-center',
-      duration: 2000
+      duration: 3000
     });
-    mensagem.present();
+    toast.present();
   }
 }

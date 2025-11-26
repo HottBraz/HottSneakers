@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Tênis{% endblock %}
+
+{% block content %}
+<div class="card card-body mb-4">
+    <form class="row g-3 align-items-center">
+        <div class="col-lg">
+            <input type="search" class="form-control" name="q" placeholder="Pesquisar por marca, modelo, tamanho...">
+        </div>
+        <div class="col-lg-auto">
+            <button class="btn btn-primary w-100" type="submit">
+                <i class="bi bi-search me-1"></i> Pesquisar
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Cards de Tênis -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for tenis in lista_tenis %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            {% if tenis.foto %}
+            <img src="{{ tenis.foto.url }}" class="card-img-top" alt="Imagem do {{ tenis.modelo }}"
+                style="height: 200px; object-fit: cover;">
+            {% else %}
+            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                <i class="bi bi-shop text-muted" style="font-size: 3rem;"></i>
+            </div>
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ tenis.get_marca_display }} {{ tenis.modelo }}</h5>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-0"><strong>Tamanho:</strong> {{ tenis.tamanho }}</li>
+                    <li class="list-group-item px-0"><strong>Cor:</strong> {{ tenis.get_cor_display }}</li>
+                    <li class="list-group-item px-0"><strong>Tipo:</strong> {{ tenis.get_tipo_display }}
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="card-footer bg-white border-0 pb-3">
+                <div class="d-grid gap-2 d-md-flex justify-content-end">
+                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                        data-bs-target="#editModal-{{ tenis.id }}">
+                        <i class="bi bi-pencil-fill me-1"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal-{{ tenis.id }}">
+                        <i class="bi bi-trash-fill me-1"></i> Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'tenis/modals.html' with tenis=tenis %}
+
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-secondary text-center py-4">
+            Nenhum tênis encontrado.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

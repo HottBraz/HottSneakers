@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // Use 'http://10.0.2.2:8000' para Android Emulator
+  // Use 'http://localhost:8000' para iOS Simulator ou navegador web
+  // Use 'http://192.168.137.30:8000' para dispositivo físico na mesma rede Wi-Fi
+  apiUrl: 'http://localhost:8000'
 };
 
 /*

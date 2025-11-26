@@ -12,15 +12,15 @@
     {% for anuncio in lista_anuncios %}
     <div class="col">
         <div class="card h-100 shadow-sm">
-            {% if anuncio.veiculo.foto %}
+            {% if anuncio.tenis.foto %}
             <a href="{% url 'detalhes-anuncio' anuncio.id %}">
-                <img src="{{ anuncio.veiculo.foto.url }}" class="card-img-top" alt="{{ anuncio.veiculo.modelo }}" style="height:200px; object-fit:cover;">
+                <img src="{{ anuncio.tenis.foto.url }}" class="card-img-top" alt="{{ anuncio.tenis.modelo }}" style="height:200px; object-fit:cover;">
             </a>
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title"><a href="{% url 'detalhes-anuncio' anuncio.id %}">{{ anuncio.titulo }}</a></h5>
                 <p class="card-text"><strong>Preço:</strong> R$ {{ anuncio.preco }}</p>
-                <p class="card-text"><strong>Veículo:</strong> {{ anuncio.veiculo }}</p>
+                <p class="card-text"><strong>Tênis:</strong> {{ anuncio.tenis }}</p>
                 <p class="card-text small text-muted"><strong>Anunciante:</strong> {{ anuncio.usuario.username }}</p>
             </div>
             <div class="card-footer bg-white border-0 pb-3">

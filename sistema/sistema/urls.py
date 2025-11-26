@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
-    path('veiculo/', include('veiculo.urls')),
+    path('tenis/', include('tenis.urls')),
     path('anuncio/', include('anuncio.urls')),
     path('api/login/', LoginAPI.as_view(), name='api_login'),
 ]

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Cadastrar Veículo{% endblock %}
+{% block title %}Cadastrar Tênis{% endblock %}
 
 {% block content %}
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title mb-0">Cadastrar Novo Veículo</h4>
+        <h4 class="card-title mb-0">Cadastrar Novo Tênis</h4>
     </div>
     <div class="card-body">
         <form method="post" enctype="multipart/form-data">
@@ -24,10 +24,10 @@
                 {% endfor %}
             </div>
             <div class="mt-3">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-primary">
                     <i class="bi bi-check-circle me-1"></i> Salvar
                 </button>
-                <a href="{% url 'listar-veiculos' %}" class="btn btn-secondary">
+                <a href="{% url 'listar-tenis' %}" class="btn btn-secondary">
                     <i class="bi bi-x-circle me-1"></i> Cancelar
                 </a>
             </div>

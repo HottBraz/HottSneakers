@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Anuncio
 from .forms import FormularioAnuncio
-from veiculo.models import Veiculo
+from tenis.models import Tenis
 
 class ListarAnuncios(LoginRequiredMixin, ListView):
     model = Anuncio
@@ -26,7 +26,7 @@ class CadastrarAnuncio(LoginRequiredMixin, CreateView):
 
     def get_form(self):
         form = super().get_form()
-        form.fields['veiculo'].queryset = Veiculo.objects.all()
+        form.fields['tenis'].queryset = Tenis.objects.all()
         return form
 
     def form_valid(self, form):
@@ -45,7 +45,7 @@ class EditarAnuncio(LoginRequiredMixin, UpdateView):
 
     def get_form(self):
         form = super().get_form()
-        form.fields['veiculo'].queryset = Veiculo.objects.all()
+        form.fields['tenis'].queryset = Tenis.objects.all()
         return form
 
 class ExcluirAnuncio(LoginRequiredMixin, DeleteView):
@@ -86,4 +86,4 @@ class ListarTodosAnuncios(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         # Lista todos os anúncios de todos os usuários
-        return Anuncio.objects.all().select_related('veiculo', 'usuario')
+        return Anuncio.objects.all().select_related('tenis', 'usuario')

@@ -1,5 +1,5 @@
 ion-content {
-    --background: #f8f9fa;
+    --background: rgb(122, 189, 255);
 }
 
 .login-container {
@@ -24,7 +24,7 @@ ion-content {
     ion-card-title {
         font-size: 1.5rem;
         font-weight: 500;
-        color: #212529;
+        color: #000000;
     }
 
     ion-card-content {
@@ -38,13 +38,13 @@ ion-content {
         ion-label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #212529;
+            color: #000000;
             font-size: 1rem;
         }
 
         ion-item {
             --background: #ffffff;
-            --border-color: #dee2e6;
+            --border-color: #000000;
             --border-width: 1px;
             --border-style: solid;
             --border-radius: 0.375rem;
@@ -54,8 +54,8 @@ ion-content {
             --min-height: 38px;
 
             ion-input {
-                --color: #212529;
-                --placeholder-color: #6c757d;
+                --color: #000000;
+                --placeholder-color: #000000;
                 --placeholder-opacity: 1;
             }
         }

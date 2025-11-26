@@ -12,7 +12,7 @@ class Login(View):
     def get(self, request):
         contexto = {}
         if request.user.is_authenticated:
-            return redirect("/veiculo")
+            return redirect("/tenis")
         else:
             return render(request, 'login.html', contexto)
     
@@ -24,7 +24,7 @@ class Login(View):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect("/veiculo")
+                return redirect("/tenis")
         else:
             messages.error(request, 'Usuário ou senha inválidos.')
             return redirect('login')
@@ -38,6 +38,9 @@ class Logout(View):
 class LoginAPI(ObtainAuthToken):
 
     def post(self, request, *args, **kwargs):
+        # Log para debug
+        print(f"Dados recebidos: {request.data}")
+        
         serializer = self.serializer_class(
             data=request.data, 
             context={
@@ -45,6 +48,9 @@ class LoginAPI(ObtainAuthToken):
             }
         )
 
+        if not serializer.is_valid():
+            print(f"Erros de validação: {serializer.errors}")
+            
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)

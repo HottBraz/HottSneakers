@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="dark">
+      Editar Tênis
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light" class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Editar Tênis</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form (submit)="salvarTenis()">
+        <!-- Preview da Foto -->
+        <div class="foto-container" *ngIf="fotoPreview">
+          <img [src]="fotoPreview" alt="Preview da foto" style="width: 100%; max-height: 200px; object-fit: contain; border-radius: 8px; margin-bottom: 10px;">
+        </div>
+
+        <ion-button expand="block" fill="outline" color="medium" (click)="selecionarFoto()" type="button">
+          <ion-icon slot="start" name="camera"></ion-icon>
+          {{ fotoPreview ? 'Alterar Foto' : 'Adicionar Foto' }}
+        </ion-button>
+
+        <ion-item>
+          <ion-label position="stacked">Marca *</ion-label>
+          <ion-select [(ngModel)]="tenis.marca" name="marca" placeholder="Selecione a marca">
+            <ion-select-option *ngFor="let marca of marcas" [value]="marca.id">
+              {{marca.nome}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Modelo *</ion-label>
+          <ion-input type="text" [(ngModel)]="tenis.modelo" name="modelo" placeholder="Ex: Air Max 90"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Tamanho *</ion-label>
+          <ion-input type="number" [(ngModel)]="tenis.tamanho" name="tamanho" placeholder="Ex: 42"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Cor *</ion-label>
+          <ion-select [(ngModel)]="tenis.cor" name="cor" placeholder="Selecione a cor">
+            <ion-select-option *ngFor="let cor of cores" [value]="cor.id">
+              {{cor.nome}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Tipo *</ion-label>
+          <ion-select [(ngModel)]="tenis.tipo" name="tipo" placeholder="Selecione o tipo">
+            <ion-select-option *ngFor="let tipo of tipos" [value]="tipo.id">
+              {{tipo.nome}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" color="primary" class="ion-margin-top">
+          Atualizar Tênis
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
